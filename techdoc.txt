@@ -1,0 +1,12 @@
+http://blog.csdn.net/u010002704/article/details/39994507   
+qt与mysql
+
+http://blog.sina.com.cn/s/blog_a6fb6cc90101gx30.html
+qt与sqlite
+
+http://blog.csdn.net/u011417605/article/details/51218493
+按钮下拉菜单
+
+http://blog.csdn.net/tengweitw/article/details/21275721
+登录对话框和主窗口的切换
+
