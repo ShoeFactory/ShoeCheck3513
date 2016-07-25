@@ -1,4 +1,4 @@
-#include "userauth.h"
+﻿#include "userauth.h"
 
 UserAuth *UserAuth::userAuth = NULL;
 
@@ -22,18 +22,4 @@ void UserAuth::setCurrentUser(const User &value)
 {
     currentUser = value;
 }
-
-bool UserAuth::validateUser(QString name, QString passwd, User &user)
-{
-    if(name != "wxk")
-        return false;
-
-    user.setName(name);
-    user.setPasswd(passwd);
-
-    user.setRole(UserRole::Admin);
-
-    return true;
-}
-
 

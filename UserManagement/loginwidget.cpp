@@ -1,5 +1,7 @@
-#include "loginwidget.h"
+﻿#include "loginwidget.h"
 #include "ui_loginwidget.h"
+
+#pragma execution_character_set("utf-8")
 
 LoginWidget::LoginWidget(QWidget *parent) :
     QWidget(parent),
@@ -34,7 +36,7 @@ void LoginWidget::on_pushButton_login_clicked()
     ui->lineEdit_userPasswd->clear();
 
     User user;
-    if(USER_AUTH->validateUser(ui->lineEdit_userName->text(),
+    if(DB_HELPER->validateUser(ui->lineEdit_userName->text(),
                                ui->lineEdit_userPasswd->text(),
                                user))
     {
@@ -58,4 +60,25 @@ void LoginWidget::on_lineEdit_userPasswd_textChanged(const QString &arg1)
 {
     Q_UNUSED(arg1)
     ui->label_prompt->clear();
+}
+
+void LoginWidget::showEvent(QShowEvent *)
+{
+    QString connectStatus;
+    if(DB_HELPER->isOpen())
+    {
+        connectStatus = QString("欢迎使用……");
+        ui->pushButton_configDB->setHidden(true);
+    }
+    else
+    {
+        connectStatus = QString("连接数据库失败…");
+        ui->pushButton_configDB->setHidden(false);
+    }
+    ui->label_status->setText(connectStatus);
+}
+
+void LoginWidget::on_pushButton_configDB_clicked()
+{
+
 }

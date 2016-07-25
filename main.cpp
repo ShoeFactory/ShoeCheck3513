@@ -1,9 +1,15 @@
-#include <QApplication>
+﻿#include <QApplication>
+
 #include "loginwidget.h"
 #include "mainwindow.h"
+#include "dbhelper.h"
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    DB_HELPER->connectToConfigedDB();
+
     MainWindow mainWindow;
     LoginWidget loginWidget;
 

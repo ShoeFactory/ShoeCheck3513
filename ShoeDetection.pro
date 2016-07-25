@@ -6,6 +6,7 @@ TARGET = ShoeDecetion
 TEMPLATE = app
 
 INCLUDEPATH += \
+        DBManagement \
         UserManagement\
         MainWindow
 
@@ -14,13 +15,15 @@ SOURCES += \
     UserManagement/loginwidget.cpp \
     UserManagement/userauth.cpp \
     MainWindow/mainwindow.cpp \
-    UserManagement/user.cpp
+    UserManagement/user.cpp \
+    DBManagement/dbhelper.cpp
 
 HEADERS += \
     UserManagement/loginwidget.h \
     UserManagement/userauth.h \
     MainWindow/mainwindow.h \
-    UserManagement/user.h
+    UserManagement/user.h \
+    DBManagement/dbhelper.h
 
 FORMS += \
     UserManagement/loginwidget.ui \

@@ -1,8 +1,10 @@
-#ifndef LOGINWIDGET_H
+﻿#ifndef LOGINWIDGET_H
 #define LOGINWIDGET_H
 
 #include <QWidget>
+#include <QShowEvent>
 #include "userauth.h"
+#include "dbhelper.h"
 
 namespace Ui {
 class LoginWidget;
@@ -24,8 +26,12 @@ private slots:
     void on_pushButton_login_clicked();
 
     void on_lineEdit_userName_textChanged(const QString &arg1);
-
     void on_lineEdit_userPasswd_textChanged(const QString &arg1);
+
+    void on_pushButton_configDB_clicked();
+
+protected:
+    void showEvent(QShowEvent*);
 
 private:
     Ui::LoginWidget *ui;
