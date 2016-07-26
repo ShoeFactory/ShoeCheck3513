@@ -1,6 +1,8 @@
 ﻿#include "dbhelper.h"
 #include <QApplication>
 #include <QtSql>
+#include <QString>
+#include <QCryptographicHash>
 
 DBHelper* DBHelper::dbHelper=NULL;
 
@@ -22,7 +24,38 @@ bool DBHelper::connectToConfigedDB()
     DBConnectPara para;
     para.driver = "QSQLITE";
     para.databaseName = QApplication::applicationDirPath() + "/shoecheck.db";
+
     return connectToDataBase(para);
+}
+
+bool DBHelper::initialFillTheEmptyDB()
+{
+    bool success = false;
+    // you should check if args are ok first...
+
+    QString name = "wxk";
+
+    QString passwdMD5;
+    QString pwd="123";
+    QByteArray bb = QCryptographicHash::hash(pwd.toUtf8(), QCryptographicHash::Md5 );
+    passwdMD5.append(bb.toHex());
+
+    QSqlQuery query(m_db);
+    query.prepare("INSERT INTO users (name, passwd) VALUES (:name, :passwd)");
+    query.bindValue(":name", name);
+    query.bindValue(":passwd", passwdMD5);
+
+    if(query.exec())
+    {
+        success = true;
+    }
+    else
+    {
+        qDebug() << "addPerson error:  "
+                 << query.lastError();
+    }
+
+    return success;
 }
 
 bool DBHelper::connectToDataBase(DBConnectPara para)
@@ -57,14 +90,16 @@ bool DBHelper::connectToDataBase(DBConnectPara para)
 
 bool DBHelper::validateUser(QString name, QString passwd, User &user)
 {
-    QSqlQuery query;
+    QString passwdMD5;
+    QByteArray bb = QCryptographicHash::hash(passwd.toUtf8(), QCryptographicHash::Md5 );
+    passwdMD5.append(bb.toHex());
 
+    QSqlQuery query(m_db);
     query.prepare("select * from users where name=:username and passwd=:passwd");
     query.bindValue(":username", name);
-    query.bindValue(":passwd", passwd);
+    query.bindValue(":passwd", passwdMD5);
 
     query.exec();
-
     if(query.next())
     {
         int id = query.value(0).toInt();

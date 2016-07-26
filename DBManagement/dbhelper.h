@@ -22,6 +22,7 @@ public:
 
     bool isOpen();
     bool connectToConfigedDB();
+    bool initialFillTheEmptyDB();
     bool connectToDataBase(DBConnectPara para);
 
     /* 用户部分功能 */
