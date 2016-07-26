@@ -1,10 +1,10 @@
-#ifndef USER_H
+﻿#ifndef USER_H
 #define USER_H
 #include <QString>
 
 typedef enum UserRole{
-    Admin,
-    Normal,
+    Admin=1,
+    Normal=2,
 } UserRole;
 
 class User

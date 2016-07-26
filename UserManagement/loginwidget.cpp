@@ -8,7 +8,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui(new Ui::LoginWidget)
 {
     ui->setupUi(this);
-    setWindowFlags(windowFlags() | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+  //  setWindowFlags(windowFlags() | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 
     ui->label_prompt->setStyleSheet("color: rgb(255, 0, 0);");
     ui->label_prompt->clear();
@@ -33,7 +33,6 @@ void LoginWidget::on_pushButton_cancel_clicked()
 
 void LoginWidget::on_pushButton_login_clicked()
 {
-    ui->lineEdit_userPasswd->clear();
 
     User user;
     if(DB_HELPER->validateUser(ui->lineEdit_userName->text(),
@@ -41,6 +40,7 @@ void LoginWidget::on_pushButton_login_clicked()
                                user))
     {
         USER_AUTH->setCurrentUser(user);
+        ui->lineEdit_userPasswd->clear();
         hide();
         emit loginEccepted();
     }
@@ -48,6 +48,7 @@ void LoginWidget::on_pushButton_login_clicked()
     {
         ui->label_prompt->setText(QString("Wrong UserName or Password"));
     }
+
 }
 
 void LoginWidget::on_lineEdit_userName_textChanged(const QString &arg1)

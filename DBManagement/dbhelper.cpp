@@ -1,5 +1,6 @@
 ﻿#include "dbhelper.h"
 #include <QApplication>
+#include <QtSql>
 
 DBHelper* DBHelper::dbHelper=NULL;
 
@@ -20,7 +21,7 @@ bool DBHelper::connectToConfigedDB()
     //xml文件的位置绝对是写死的
     DBConnectPara para;
     para.driver = "QSQLITE";
-    para.databaseName = QApplication::applicationDirPath() + "shoecheck.db";
+    para.databaseName = QApplication::applicationDirPath() + "/shoecheck.db";
     return connectToDataBase(para);
 }
 
@@ -56,18 +57,34 @@ bool DBHelper::connectToDataBase(DBConnectPara para)
 
 bool DBHelper::validateUser(QString name, QString passwd, User &user)
 {
-    //写下的第一条sql语句
-    if(name != "wxk")
+    QSqlQuery query;
+
+    query.prepare("select * from users where name=:username and passwd=:passwd");
+    query.bindValue(":username", name);
+    query.bindValue(":passwd", passwd);
+
+    query.exec();
+
+    if(query.next())
+    {
+        int id = query.value(0).toInt();
+        QString userName = query.value(1).toString();
+        QString password = query.value(2).toString();
+        QString telephone = query.value(3).toString();
+        int role = query.value(4).toInt();
+
+        user.setId(id);
+        user.setName(userName);
+        user.setPasswd(password);
+        user.setTelephone(telephone);
+        user.setRole((UserRole)role);
+
+        return true;
+    }
+    else
+    {
         return false;
-
-    user.setName(name);
-    user.setPasswd(passwd);
-
-    user.setRole(UserRole::Admin);
-
-    return true;
-
-
+    }
 }
 
 DBHelper *DBHelper::getDBHelperInstance()
