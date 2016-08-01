@@ -16,15 +16,26 @@ SOURCES += \
     UserManagement/userauth.cpp \
     MainWindow/mainwindow.cpp \
     UserManagement/user.cpp \
-    DBManagement/dbhelper.cpp
+    DBManagement/dbhelper.cpp \
+    UserManagement/usernamepushbutton.cpp \
+    UserManagement/changepasswddialog.cpp \
+    UserManagement/usermanagedialog.cpp \
+    UserManagement/entrymanagedialog.cpp
 
 HEADERS += \
     UserManagement/loginwidget.h \
     UserManagement/userauth.h \
     MainWindow/mainwindow.h \
     UserManagement/user.h \
-    DBManagement/dbhelper.h
+    DBManagement/dbhelper.h \
+    UserManagement/usernamepushbutton.h \
+    UserManagement/changepasswddialog.h \
+    UserManagement/usermanagedialog.h \
+    UserManagement/entrymanagedialog.h
 
 FORMS += \
     UserManagement/loginwidget.ui \
-    MainWindow/mainwindow.ui
+    MainWindow/mainwindow.ui \
+    UserManagement/changepasswddialog.ui \
+    UserManagement/usermanagedialog.ui \
+    UserManagement/entrymanagedialog.ui

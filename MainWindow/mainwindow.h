@@ -1,11 +1,11 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QShowEvent>
-#include <QMenu>
-
-#include "userauth.h"
+#include "usernamepushbutton.h"
+#include "changepasswddialog.h"
+#include "usermanagedialog.h"
+#include "entrymanagedialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -24,17 +24,15 @@ public slots:
     void on_receiveShow();
 private slots:
     void on_relogin();
-protected:
-    void showEvent(QShowEvent*);
+    void on_changePasswd();
+    void on_userManage();
+    void on_entryManage();
 
 private:
     Ui::MainWindow *ui;
-
-    QMenu *userNameMenu;
-    QAction *actionlogout;
-    QAction *actionChangePasswd;
-    QAction *actionUserManage;
-    QAction *actionEntryManage;
+    ChangePasswdDialog  *changePasswdDialog;
+    UserManageDialog *userManageDialog;
+    EntryManageDialog *entryManageDialog;
 
 };
 

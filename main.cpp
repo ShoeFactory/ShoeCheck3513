@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     DB_HELPER->connectToConfigedDB();
-    DB_HELPER->initialFillTheEmptyDB();
+    //DB_HELPER->initialFillTheEmptyDB();
 
     MainWindow mainWindow;
     LoginWidget loginWidget;

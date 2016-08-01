@@ -8,12 +8,10 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui(new Ui::LoginWidget)
 {
     ui->setupUi(this);
-  //  setWindowFlags(windowFlags() | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
-
-    ui->label_prompt->setStyleSheet("color: rgb(255, 0, 0);");
-    ui->label_prompt->clear();
+    setWindowFlags(windowFlags() | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 
     ui->pushButton_login->setDefault(true);
+    ui->pushButton_login->setFocus();
 }
 
 LoginWidget::~LoginWidget()
@@ -33,7 +31,6 @@ void LoginWidget::on_pushButton_cancel_clicked()
 
 void LoginWidget::on_pushButton_login_clicked()
 {
-
     User user;
     if(DB_HELPER->validateUser(ui->lineEdit_userName->text(),
                                ui->lineEdit_userPasswd->text(),
@@ -46,7 +43,8 @@ void LoginWidget::on_pushButton_login_clicked()
     }
     else
     {
-        ui->label_prompt->setText(QString("Wrong UserName or Password"));
+        ui->lineEdit_userPasswd->clear();
+        ui->label_prompt->setText(QString("错误的用户名或密码"));
     }
 
 }
@@ -65,6 +63,9 @@ void LoginWidget::on_lineEdit_userPasswd_textChanged(const QString &arg1)
 
 void LoginWidget::showEvent(QShowEvent *)
 {
+    ui->label_prompt->setStyleSheet("color: rgb(255, 0, 0);");
+    ui->label_prompt->clear();
+
     QString connectStatus;
     if(DB_HELPER->isOpen())
     {
@@ -77,9 +78,15 @@ void LoginWidget::showEvent(QShowEvent *)
         ui->pushButton_configDB->setHidden(false);
     }
     ui->label_status->setText(connectStatus);
+    ui->pushButton_login->setFocus();
 }
 
 void LoginWidget::on_pushButton_configDB_clicked()
 {
 
+}
+
+void LoginWidget::on_lineEdit_userName_editingFinished()
+{
+    ui->pushButton_login->setFocus();
 }

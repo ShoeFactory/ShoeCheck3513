@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>978</width>
+    <width>654</width>
     <height>654</height>
    </rect>
   </property>
@@ -106,7 +106,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_userName">
+        <widget class="UserNamePushButton" name="pushButton_userName">
          <property name="text">
           <string>未知</string>
          </property>
@@ -135,6 +135,13 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>UserNamePushButton</class>
+   <extends>QPushButton</extends>
+   <header>usernamepushbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

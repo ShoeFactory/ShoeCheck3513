@@ -122,6 +122,28 @@ bool DBHelper::validateUser(QString name, QString passwd, User &user)
     }
 }
 
+bool DBHelper::updateUserPasswd(QString name, QString newPasswd)
+{
+    QString passwdMD5;
+    QByteArray bb = QCryptographicHash::hash(newPasswd.toUtf8(), QCryptographicHash::Md5 );
+    passwdMD5.append(bb.toHex());
+
+    QSqlQuery query(m_db);
+    query.prepare("UPDATE users SET passwd=:newPasswd WHERE name=:userName");
+    query.bindValue(":newPasswd", passwdMD5);
+    query.bindValue(":userName", name);
+    query.exec();
+
+
+    bool result = query.numRowsAffected() > 0;
+    if(!result)
+    {
+        qDebug() << "update passwd failed:  "
+                 << query.lastError();
+    }
+    return result;
+}
+
 DBHelper *DBHelper::getDBHelperInstance()
 {
     if(dbHelper == NULL)

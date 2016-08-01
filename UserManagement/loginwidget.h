@@ -30,6 +30,8 @@ private slots:
 
     void on_pushButton_configDB_clicked();
 
+    void on_lineEdit_userName_editingFinished();
+
 protected:
     void showEvent(QShowEvent*);
 

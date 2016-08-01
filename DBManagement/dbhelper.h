@@ -27,6 +27,7 @@ public:
 
     /* 用户部分功能 */
     bool validateUser(QString name, QString passwd, User&user);
+    bool updateUserPasswd(QString name, QString newPasswd);
 
     /* 数据库检查项目部分功能 */
 public:
