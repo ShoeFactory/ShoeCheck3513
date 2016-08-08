@@ -1,6 +1,7 @@
 ﻿#include <QApplication>
 
-#include "loginwidget.h"
+#include <QSqlError>
+#include "logindialog.h"
 #include "mainwindow.h"
 #include "dbhelper.h"
 
@@ -9,18 +10,17 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    DB_HELPER->connectToConfigedDB();
-    //DB_HELPER->initialFillTheEmptyDB();
+    DB_HELPER->createConnection();
 
     MainWindow mainWindow;
-    LoginWidget loginWidget;
+    LoginDialog loginDialog;
 
-    QObject::connect(&loginWidget, SIGNAL(loginEccepted()),
+    QObject::connect(&loginDialog, SIGNAL(loginEccepted()),
                      &mainWindow, SLOT(on_receiveShow()));
     QObject::connect(&mainWindow, SIGNAL(relogin()),
-                     &loginWidget, SLOT(on_relogin()));
+                     &loginDialog, SLOT(on_relogin()));
 
-    loginWidget.show();
+    loginDialog.show();
 
     return a.exec();
 }

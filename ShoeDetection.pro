@@ -12,7 +12,6 @@ INCLUDEPATH += \
 
 SOURCES += \
     main.cpp \
-    UserManagement/loginwidget.cpp \
     UserManagement/userauth.cpp \
     MainWindow/mainwindow.cpp \
     UserManagement/user.cpp \
@@ -20,10 +19,10 @@ SOURCES += \
     UserManagement/usernamepushbutton.cpp \
     UserManagement/changepasswddialog.cpp \
     UserManagement/usermanagedialog.cpp \
-    UserManagement/entrymanagedialog.cpp
+    UserManagement/entrymanagedialog.cpp \
+    UserManagement/logindialog.cpp
 
 HEADERS += \
-    UserManagement/loginwidget.h \
     UserManagement/userauth.h \
     MainWindow/mainwindow.h \
     UserManagement/user.h \
@@ -31,11 +30,12 @@ HEADERS += \
     UserManagement/usernamepushbutton.h \
     UserManagement/changepasswddialog.h \
     UserManagement/usermanagedialog.h \
-    UserManagement/entrymanagedialog.h
+    UserManagement/entrymanagedialog.h \
+    UserManagement/logindialog.h
 
 FORMS += \
-    UserManagement/loginwidget.ui \
     MainWindow/mainwindow.ui \
     UserManagement/changepasswddialog.ui \
     UserManagement/usermanagedialog.ui \
-    UserManagement/entrymanagedialog.ui
+    UserManagement/entrymanagedialog.ui \
+    UserManagement/logindialog.ui

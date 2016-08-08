@@ -4,6 +4,8 @@
 #include <QString>
 #include <QCryptographicHash>
 
+#define USE_QSQLITE
+
 DBHelper* DBHelper::dbHelper=NULL;
 
 DBHelper::DBHelper()
@@ -16,76 +18,70 @@ bool DBHelper::isOpen()
     return m_db.isOpen();
 }
 
-bool DBHelper::connectToConfigedDB()
+QSqlError DBHelper::createConnection()
 {
-    //从配置文件中读取
-    //这里应该读取一个xml文件吧
-    //xml文件的位置绝对是写死的
     DBConnectPara para;
+#ifdef USE_QSQLITE
     para.driver = "QSQLITE";
     para.databaseName = QApplication::applicationDirPath() + "/shoecheck.db";
+#else
 
+#endif
     return connectToDataBase(para);
 }
 
-bool DBHelper::initialFillTheEmptyDB()
+QSqlError DBHelper::connectToDataBase(DBConnectPara para)
 {
-    bool success = false;
-    // you should check if args are ok first...
+    m_db = QSqlDatabase::addDatabase(para.driver);
+    m_db.setHostName(para.hostName);
+    m_db.setPort(para.port);
+    m_db.setDatabaseName(para.databaseName);
+    m_db.setUserName(para.userName);
+    m_db.setPassword(para.userPasswd);
 
-    QString name = "wxk";
+    if(!m_db.open())
+        return m_db.lastError();
 
+    QStringList tables = m_db.tables();
+    if (tables.contains("userroles", Qt::CaseInsensitive)
+            && tables.contains("users", Qt::CaseInsensitive))
+        return QSqlError();
+
+    //初始化数据库
+    QSqlQuery q(m_db);
+    if( !q.exec("create table userroles(id integer primary key, name varchar(20))") )
+        return q.lastError();
+
+    q.exec("insert into userroles values(1, 'admin')");
+    q.exec( "insert into userroles values(2, 'normal')" );
+
+    if( !q.exec("create table users(id integer primary key, name varchar(20), passwd varchar(32), role integer, telephone varchar(20) )") )
+        return q.lastError();
+
+    QString name;
+    QString passwd;
     QString passwdMD5;
-    QString pwd="123";
-    QByteArray bb = QCryptographicHash::hash(pwd.toUtf8(), QCryptographicHash::Md5 );
-    passwdMD5.append(bb.toHex());
+    q.prepare( "insert into users(name, passwd, role) values(:name, :passwdmd5, :role)" );
 
-    QSqlQuery query(m_db);
-    query.prepare("INSERT INTO users (name, passwd) VALUES (:name, :passwd)");
-    query.bindValue(":name", name);
-    query.bindValue(":passwd", passwdMD5);
+    name = QString("wangxk");
+    passwd = QString("123");
+    passwdMD5 = QString().append(QCryptographicHash::hash(passwd.toUtf8(), QCryptographicHash::Md5).toHex());
 
-    if(query.exec())
-    {
-        success = true;
-    }
-    else
-    {
-        qDebug() << "addPerson error:  "
-                 << query.lastError();
-    }
+    q.bindValue(":name", name);
+    q.bindValue(":passwdmd5", passwdMD5);
+    q.bindValue(":role", 1);
+    q.exec();
 
-    return success;
-}
+    name = QString("zhangwl");
+    passwd = QString("123");
+    passwdMD5 = QString().append(QCryptographicHash::hash(passwd.toUtf8(), QCryptographicHash::Md5).toHex());
 
-bool DBHelper::connectToDataBase(DBConnectPara para)
-{
-    if(m_db.isOpen())
-        m_db.close();
+    q.bindValue(":name", name);
+    q.bindValue(":passwdmd5", passwdMD5);
+    q.bindValue(":role", 2);
+    q.exec();
 
-    QString driver = para.driver;
-
-    if(driver == "QSQLITE")
-    {
-        m_db = QSqlDatabase::addDatabase("QSQLITE");
-        m_db.setDatabaseName(para.databaseName);
-    }
-    else if(driver == "QMYSQL")
-    {
-        m_db = QSqlDatabase::addDatabase("QMYSQL");
-
-        m_db.setHostName(para.hostName);
-        m_db.setPort(para.port);
-        m_db.setDatabaseName(para.databaseName);
-        m_db.setUserName(para.userName);
-        m_db.setPassword(para.userPasswd);
-    }
-    else
-    {
-        return false;
-    }
-
-    return m_db.open();
+    return QSqlError();
 }
 
 bool DBHelper::validateUser(QString name, QString passwd, User &user)
@@ -105,8 +101,8 @@ bool DBHelper::validateUser(QString name, QString passwd, User &user)
         int id = query.value(0).toInt();
         QString userName = query.value(1).toString();
         QString password = query.value(2).toString();
-        QString telephone = query.value(3).toString();
-        int role = query.value(4).toInt();
+        int role = query.value(3).toInt();
+        QString telephone = query.value(4).toString();
 
         user.setId(id);
         user.setName(userName);

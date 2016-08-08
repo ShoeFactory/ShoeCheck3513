@@ -19,11 +19,8 @@ typedef struct DBConnectPara{
 class DBHelper
 {
 public:
-
     bool isOpen();
-    bool connectToConfigedDB();
-    bool initialFillTheEmptyDB();
-    bool connectToDataBase(DBConnectPara para);
+    QSqlError createConnection();
 
     /* 用户部分功能 */
     bool validateUser(QString name, QString passwd, User&user);
@@ -34,6 +31,8 @@ public:
     DBHelper();
     static DBHelper *getDBHelperInstance();
 private:
+    QSqlError connectToDataBase(DBConnectPara para);
+
     QSqlDatabase m_db;
     static DBHelper* dbHelper;
 
