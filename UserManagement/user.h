@@ -2,18 +2,20 @@
 #define USER_H
 #include <QString>
 
-typedef enum UserRole{
-    Admin=1,
-    Normal=2,
-} UserRole;
+
 
 class User
 {
 public:
+    enum UserRole{
+        Admin=1,
+        Normal=2,
+    };
+
     User();
 
-    UserRole getRole() const;
-    void setRole(const UserRole &value);
+    int getRole() const;
+    void setRole(const int &value);
 
     QString getName() const;
     void setName(const QString &value);

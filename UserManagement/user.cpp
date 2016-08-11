@@ -1,17 +1,17 @@
-#include "user.h"
+﻿#include "user.h"
 
 User::User()
 {
-    role = UserRole::Normal;
+    role = User::Normal;
 }
-UserRole User::getRole() const
+int User::getRole() const
 {
     return role;
 }
 
-void User::setRole(const UserRole &value)
+void User::setRole(const int &value)
 {
-    role = value;
+    role = (UserRole)value;
 }
 QString User::getName() const
 {

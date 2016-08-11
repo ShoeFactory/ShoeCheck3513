@@ -29,18 +29,18 @@ UserNamePushButton::UserNamePushButton(QWidget *parent)
 void UserNamePushButton::showEvent(QShowEvent *)
 {
     User user = USER_AUTH->getCurrentUser();
-    UserRole role = user.getRole();
+    int role = user.getRole();
     //依据当前的身份状态 修改界面显示
     QString roleStr;
     switch (role) {
-    case UserRole::Admin:
+    case User::Admin:
     {
         roleStr = tr("[Admin]");
         actionUserManage->setVisible(true);
         actionEntryManage->setVisible(true);
         break;
     }
-    case UserRole::Normal:
+    case User::Normal:
     {
         roleStr = tr("[Normal]");
         actionUserManage->setVisible(false);

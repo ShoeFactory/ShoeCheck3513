@@ -3,9 +3,9 @@
 
 #include <QMainWindow>
 #include "usernamepushbutton.h"
-#include "changepasswddialog.h"
 #include "usermanagedialog.h"
 #include "entrymanagedialog.h"
+#include "updatepasswddialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -30,7 +30,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    ChangePasswdDialog  *changePasswdDialog;
+    UpdatePasswdDialog  *updatePasswdDialog;
     UserManageDialog *userManageDialog;
     EntryManageDialog *entryManageDialog;
 

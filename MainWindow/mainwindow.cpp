@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButton_userName, &UserNamePushButton::signal_userManage, this, &MainWindow::on_userManage);
     connect(ui->pushButton_userName, &UserNamePushButton::signal_entryManage, this, &MainWindow::on_entryManage);
 
-    changePasswdDialog = new ChangePasswdDialog(this);
+    updatePasswdDialog = new UpdatePasswdDialog(this);
     userManageDialog = new UserManageDialog(this);
     entryManageDialog = new EntryManageDialog(this);
 }
@@ -35,7 +35,7 @@ void MainWindow::on_relogin()
 
 void MainWindow::on_changePasswd()
 {
-    changePasswdDialog->exec();
+    updatePasswdDialog->exec();
 }
 
 void MainWindow::on_userManage()

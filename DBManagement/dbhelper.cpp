@@ -30,6 +30,11 @@ QSqlError DBHelper::createConnection()
     return connectToDataBase(para);
 }
 
+QString DBHelper::getMD5String(QString readableString)
+{
+    return QString().append(QCryptographicHash::hash(readableString.toUtf8(), QCryptographicHash::Md5).toHex());
+}
+
 QSqlError DBHelper::connectToDataBase(DBConnectPara para)
 {
     m_db = QSqlDatabase::addDatabase(para.driver);
@@ -108,7 +113,7 @@ bool DBHelper::validateUser(QString name, QString passwd, User &user)
         user.setName(userName);
         user.setPasswd(password);
         user.setTelephone(telephone);
-        user.setRole((UserRole)role);
+        user.setRole(role);
 
         return true;
     }
