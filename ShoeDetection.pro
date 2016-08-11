@@ -2,7 +2,9 @@ QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = ShoeDecetion
+RC_ICONS =  shoedetection.ico
+
+TARGET = ShoeDetetion
 TEMPLATE = app
 
 INCLUDEPATH += \
@@ -20,7 +22,8 @@ SOURCES += \
     UserManagement/changepasswddialog.cpp \
     UserManagement/usermanagedialog.cpp \
     UserManagement/entrymanagedialog.cpp \
-    UserManagement/logindialog.cpp
+    UserManagement/logindialog.cpp \
+    UserManagement/updatepasswddialog.cpp
 
 HEADERS += \
     UserManagement/userauth.h \
@@ -31,11 +34,11 @@ HEADERS += \
     UserManagement/changepasswddialog.h \
     UserManagement/usermanagedialog.h \
     UserManagement/entrymanagedialog.h \
-    UserManagement/logindialog.h
+    UserManagement/logindialog.h \
+    UserManagement/updatepasswddialog.h
 
 FORMS += \
     MainWindow/mainwindow.ui \
-    UserManagement/changepasswddialog.ui \
     UserManagement/usermanagedialog.ui \
     UserManagement/entrymanagedialog.ui \
     UserManagement/logindialog.ui
