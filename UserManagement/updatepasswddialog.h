@@ -1,27 +1,21 @@
-﻿#ifndef CHANGEPASSWDDIALOG_H
-#define CHANGEPASSWDDIALOG_H
+﻿#ifndef UPDATEPASSWDDIALOG_H
+#define UPDATEPASSWDDIALOG_H
 
 #include <QDialog>
 #include <QShowEvent>
+
 class QPushButton;
 class QLineEdit;
 class QLabel;
 
-namespace Ui {
-class ChangePasswdDialog;
-}
-
-class ChangePasswdDialog : public QDialog
+class UpdatePasswdDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit ChangePasswdDialog(QWidget *parent = 0);
-    void setTitle(QString title);
-    QString getNewPasswd();
-    ~ChangePasswdDialog();
-signals:
-    void aimedNewPasswd(QString newPasswd);
+    explicit UpdatePasswdDialog(QWidget *parent = 0);
+    ~UpdatePasswdDialog();
+
 protected:
     void showEvent(QShowEvent*);
 
@@ -35,12 +29,14 @@ private:
     QPushButton *pushButton_ok;
     QPushButton *pushButton_cancel;
 
+    QLabel *label_currentPasswd;
     QLabel *label_newPasswd;
     QLabel *label_ackNewPasswd;
     QLabel *label_prompt;
 
+    QLineEdit *lineEdit_currentPasswd;
     QLineEdit *lineEdit_newPasswd;
     QLineEdit *lineEdit_ackNewPasswd;
 };
 
-#endif // CHANGEPASSWDDIALOG_H
+#endif // UPDATEPASSWDDIALOG_H
