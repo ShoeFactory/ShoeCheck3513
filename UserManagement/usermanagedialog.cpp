@@ -1,5 +1,4 @@
-﻿#include <QDesktopWidget>
-#include <QtSql>
+﻿#include <QtSql>
 #include <QtWidgets>
 
 #include "usermanagedialog.h"
@@ -51,8 +50,8 @@ UserManageDialog::UserManageDialog(QWidget *parent) :
     //userTablwView->setSelectionModel()           //选中id时     希望能选中整行 （删除和改密码）
     //userTableView->setTextAlignment(Qt::center); //文字居中显示 可惜没有这个函数 要自己写代理
 
-    //userTableView->setColumnHidden(2, true); //密码列不显示
-    userTableView->verticalHeader()->setHidden(true);
+    userTableView->setColumnHidden(0, true); //id列不显示
+    userTableView->setColumnHidden(2, true); //密码列不显示
 
     //userTableView->setSelectionMode ( QAbstractItemView::SingleSelection); //设置选择模式，选择单行
 
@@ -81,6 +80,7 @@ UserManageDialog::UserManageDialog(QWidget *parent) :
 
 
     uniqueUserId = userTableModel->rowCount();
+    uniqueUserId = userTableModel->record(uniqueUserId-1).value(0).toInt();
 
     connect(button_addUser, &QPushButton::clicked, this, &UserManageDialog::on_addUser);
     connect(button_removeUser, &QPushButton::clicked, this, &UserManageDialog::on_removeUser);
