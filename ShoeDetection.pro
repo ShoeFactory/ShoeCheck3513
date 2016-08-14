@@ -10,6 +10,7 @@ TEMPLATE = app
 INCLUDEPATH += \
         DBManagement \
         UserManagement\
+        EntryManagement \
         MainWindow
 
 SOURCES += \
@@ -21,9 +22,11 @@ SOURCES += \
     UserManagement/usernamepushbutton.cpp \
     UserManagement/changepasswddialog.cpp \
     UserManagement/usermanagedialog.cpp \
-    UserManagement/entrymanagedialog.cpp \
     UserManagement/logindialog.cpp \
-    UserManagement/updatepasswddialog.cpp
+    UserManagement/updatepasswddialog.cpp \
+    EntryManagement/entrymanagedialog.cpp \
+    EntryManagement/entrysingle.cpp \
+    EntryManagement/entrytotal.cpp
 
 HEADERS += \
     UserManagement/userauth.h \
@@ -33,12 +36,14 @@ HEADERS += \
     UserManagement/usernamepushbutton.h \
     UserManagement/changepasswddialog.h \
     UserManagement/usermanagedialog.h \
-    UserManagement/entrymanagedialog.h \
     UserManagement/logindialog.h \
-    UserManagement/updatepasswddialog.h
+    UserManagement/updatepasswddialog.h \
+    EntryManagement/entrymanagedialog.h \
+    EntryManagement/entrysingle.h \
+    EntryManagement/entrytotal.h
 
 FORMS += \
     MainWindow/mainwindow.ui \
     UserManagement/usermanagedialog.ui \
-    UserManagement/entrymanagedialog.ui \
-    UserManagement/logindialog.ui
+    UserManagement/logindialog.ui \
+    EntryManagement/entrymanagedialog.ui

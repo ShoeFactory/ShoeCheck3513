@@ -4,6 +4,11 @@
 #include <QDialog>
 #include <QShowEvent>
 
+class QPushButton;
+
+#include "entrysingle.h"
+#include "entrytotal.h"
+
 namespace Ui {
 class EntryManageDialog;
 }
@@ -19,8 +24,19 @@ public:
 protected:
     void showEvent(QShowEvent *);
 
+private slots:
+    void on_ok();
+    void on_cancel();
+    void on_apply();
+
 private:
     Ui::EntryManageDialog *ui;
+    EntrySingle *entrySingle;
+    EntryTotal *entryTotal;
+
+    QPushButton *button_ok;
+    QPushButton *button_cancel;
+    QPushButton *button_apply;
 };
 
 #endif // ENTRYMANAGEDIALOG_H

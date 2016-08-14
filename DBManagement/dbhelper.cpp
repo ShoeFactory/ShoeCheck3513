@@ -6,6 +6,9 @@
 
 #define USE_QSQLITE
 
+#pragma execution_character_set("utf-8")
+
+
 DBHelper* DBHelper::dbHelper=NULL;
 
 DBHelper::DBHelper()
@@ -52,7 +55,7 @@ QSqlError DBHelper::connectToDataBase(DBConnectPara para)
             && tables.contains("users", Qt::CaseInsensitive))
         return QSqlError();
 
-    //初始化数据库
+    //初始化用户数据库
     QSqlQuery q(m_db);
     if( !q.exec("create table userroles(id integer primary key, name varchar(20))") )
         return q.lastError();
@@ -64,13 +67,11 @@ QSqlError DBHelper::connectToDataBase(DBConnectPara para)
         return q.lastError();
 
     QString name;
-    QString passwd;
     QString passwdMD5;
     q.prepare( "insert into users(name, passwd, role) values(:name, :passwdmd5, :role)" );
 
     name = QString("wangxk");
-    passwd = QString("123");
-    passwdMD5 = QString().append(QCryptographicHash::hash(passwd.toUtf8(), QCryptographicHash::Md5).toHex());
+    passwdMD5 = getMD5String("123");
 
     q.bindValue(":name", name);
     q.bindValue(":passwdmd5", passwdMD5);
@@ -78,13 +79,48 @@ QSqlError DBHelper::connectToDataBase(DBConnectPara para)
     q.exec();
 
     name = QString("zhangwl");
-    passwd = QString("123");
-    passwdMD5 = QString().append(QCryptographicHash::hash(passwd.toUtf8(), QCryptographicHash::Md5).toHex());
+    passwdMD5 = getMD5String("123");
 
     q.bindValue(":name", name);
     q.bindValue(":passwdmd5", passwdMD5);
     q.bindValue(":role", 2);
     q.exec();
+
+    //初始化检测项目数据库
+    if( !q.exec("create table shoetypes(id integer primary key, name varchar(50))") )
+        return q.lastError();
+
+    q.prepare( "insert into shoetypes(name) values(:name)" );
+    name = QString("成品皮鞋");
+    q.bindValue(":name", name);
+    q.exec();
+
+
+    if( !q.exec("create table errortypes(id integer primary key, name varchar(30))") )
+        return q.lastError();
+
+    q.prepare( "insert into errortypes(name) values(:name)" );
+    QStringList errortypes = QStringList()<< "材料" << "缝帮" << "绷帮" << "制底" << "整理修饰";
+    foreach (QString errortype, errortypes) {
+        name = errortype;
+        q.bindValue(":name", name);
+        q.exec();
+    }
+
+    if( !q.exec("create table erroritems(id integer primary key, name varchar(30))") )
+        return q.lastError();
+    QStringList erroritems = QStringList()
+                             << "皮伤" << "松面"
+                             << "线道不规" << "针码大小" << "豁针断线" << "汽眼铆钉"
+                             << "吊正歪" << "后帮高低" << "前帮长短" <<  "脱壳里不展" << "包头主跟"
+                             << "底偏歪" << "开胶欠胶" << "冲胶不齐" << "子口砂断线"
+                             << "碰擦伤" << "内有卡钉" << "帮里不净" << "主跟有楞" << "错号" << "变形" << "子口胶污";
+    q.prepare( "insert into erroritems(name) values(:name)" );
+    foreach (QString erroritem, erroritems) {
+        name = erroritem;
+        q.bindValue(":name", name);
+        q.exec();
+    }
 
     return QSqlError();
 }

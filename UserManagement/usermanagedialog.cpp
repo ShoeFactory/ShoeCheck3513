@@ -46,14 +46,13 @@ UserManageDialog::UserManageDialog(QWidget *parent) :
     userTableView->setModel(userTableModel);
     userTableView->setItemDelegate(new QSqlRelationalDelegate(userTableView));
 
-    //userTableView->setColumnEditAble(0, false);  //编号不可编辑 可惜没有这个函数 要自己写代理
-    //userTablwView->setSelectionModel()           //选中id时     希望能选中整行 （删除和改密码）
-    //userTableView->setTextAlignment(Qt::center); //文字居中显示 可惜没有这个函数 要自己写代理
-
     userTableView->setColumnHidden(0, true); //id列不显示
     userTableView->setColumnHidden(2, true); //密码列不显示
 
-    //userTableView->setSelectionMode ( QAbstractItemView::SingleSelection); //设置选择模式，选择单行
+    userTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    userTableView->setSelectionMode(QAbstractItemView::SingleSelection);
+    userTableView->setShowGrid(false);
+    userTableView->setAlternatingRowColors(true);
 
     userTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     userTableView->horizontalHeader()->setStretchLastSection(true);
@@ -100,7 +99,7 @@ UserManageDialog::~UserManageDialog()
 void UserManageDialog::showEvent(QShowEvent *)
 {
     move((QApplication::desktop()->width()-width())/2,
-         (QApplication::desktop()->height()-height())/2);
+         (QApplication::desktop()->height()-height())/3);
 
     userTableModel->select();
 }
