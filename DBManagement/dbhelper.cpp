@@ -52,7 +52,7 @@ QSqlError DBHelper::connectToDataBase(DBConnectPara para)
 
     QStringList tables = m_db.tables();
     if (tables.contains("userroles", Qt::CaseInsensitive)
-            && tables.contains("users", Qt::CaseInsensitive))
+        && tables.contains("users", Qt::CaseInsensitive))
         return QSqlError();
 
     //初始化用户数据库
@@ -95,6 +95,10 @@ QSqlError DBHelper::connectToDataBase(DBConnectPara para)
     q.bindValue(":name", name);
     q.exec();
 
+    name = QString("军用皮鞋");
+    q.bindValue(":name", name);
+    q.exec();
+
 
     if( !q.exec("create table errortypes(id integer primary key, name varchar(30))") )
         return q.lastError();
@@ -120,6 +124,23 @@ QSqlError DBHelper::connectToDataBase(DBConnectPara para)
         name = erroritem;
         q.bindValue(":name", name);
         q.exec();
+    }
+
+    if( !q.exec("create table detectiontotal(id integer primary key, shoetypeid integer, errortypeid integer, erroritemid integer)") )
+        return q.lastError();
+
+    q.prepare( "insert into detectiontotal(shoetypeid, errortypeid, erroritemid) values(:shoetypeid, :errortypeid, :erroritemid)" );
+    {
+        q.bindValue(":shoetypeid", 1);
+        q.bindValue(":errortypeid", 1);
+        q.bindValue(":erroritemid", 1);
+        q.exec();
+
+        q.bindValue(":shoetypeid", 2);
+        q.bindValue(":errortypeid", 1);
+        q.bindValue(":erroritemid", 1);
+        q.exec();
+
     }
 
     return QSqlError();

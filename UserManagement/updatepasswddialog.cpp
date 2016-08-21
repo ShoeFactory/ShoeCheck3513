@@ -60,7 +60,7 @@ UpdatePasswdDialog::~UpdatePasswdDialog()
 void UpdatePasswdDialog::showEvent(QShowEvent *)
 {
     move((QApplication::desktop()->width()-width())/2,
-         (QApplication::desktop()->height()-height())/2);
+         (QApplication::desktop()->height()-height())/3);
 
     lineEdit_currentPasswd->clear();
     lineEdit_newPasswd->clear();

@@ -126,14 +126,6 @@ EntrySingle::EntrySingle(QWidget *parent)
     connect(button_shoeType_remove, &QPushButton::clicked, this, &EntrySingle::on_remove_shoeType);
     connect(button_errorType_remove, &QPushButton::clicked, this, &EntrySingle::on_remove_errorType);
     connect(button_errorItem_remove, &QPushButton::clicked, this, &EntrySingle::on_remove_errorItem);
-
-}
-
-void EntrySingle::showEvent(QShowEvent *)
-{
-    tableModel_shoeTypes->select();
-    tableModel_errorTypes->select();
-    tableModel_errorItems->select();
 }
 
 void EntrySingle::on_add_shoeType()

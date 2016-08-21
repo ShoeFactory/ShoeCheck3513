@@ -17,8 +17,6 @@ public:
     void on_cancel();
     void on_apply();
 
-protected:
-    void showEvent(QShowEvent *);
 private slots:
     void on_add_shoeType();
     void on_add_errorType();

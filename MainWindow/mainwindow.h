@@ -32,7 +32,7 @@ private:
     Ui::MainWindow *ui;
     UpdatePasswdDialog  *updatePasswdDialog;
     UserManageDialog *userManageDialog;
-    EntryManageDialog *entryManageDialog;
+    //EntryManageDialog *entryManageDialog;
 
 };
 

@@ -14,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     updatePasswdDialog = new UpdatePasswdDialog(this);
     userManageDialog = new UserManageDialog(this);
-    entryManageDialog = new EntryManageDialog(this);
 }
 
 MainWindow::~MainWindow()
@@ -24,7 +23,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_receiveShow()
 {
-    show();
+    showMaximized();
 }
 
 void MainWindow::on_relogin()
@@ -45,5 +44,6 @@ void MainWindow::on_userManage()
 
 void MainWindow::on_entryManage()
 {
+    EntryManageDialog *entryManageDialog = new EntryManageDialog(this);
     entryManageDialog->exec();
 }

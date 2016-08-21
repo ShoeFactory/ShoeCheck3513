@@ -26,7 +26,11 @@ SOURCES += \
     UserManagement/updatepasswddialog.cpp \
     EntryManagement/entrymanagedialog.cpp \
     EntryManagement/entrysingle.cpp \
-    EntryManagement/entrytotal.cpp
+    EntryManagement/entrytotal.cpp \
+    EntryManagement/entrytotaledittreeview.cpp \
+    EntryManagement/entrytotaledittreemodel.cpp \
+    EntryManagement/entrytotaledittreeitem.cpp \
+    EntryManagement/entrytotaladddialog.cpp
 
 HEADERS += \
     UserManagement/userauth.h \
@@ -40,10 +44,15 @@ HEADERS += \
     UserManagement/updatepasswddialog.h \
     EntryManagement/entrymanagedialog.h \
     EntryManagement/entrysingle.h \
-    EntryManagement/entrytotal.h
+    EntryManagement/entrytotal.h \
+    EntryManagement/entrytotaledittreeview.h \
+    EntryManagement/entrytotaledittreemodel.h \
+    EntryManagement/entrytotaledittreeitem.h \
+    EntryManagement/entrytotaladddialog.h
 
 FORMS += \
     MainWindow/mainwindow.ui \
     UserManagement/usermanagedialog.ui \
     UserManagement/logindialog.ui \
-    EntryManagement/entrymanagedialog.ui
+    EntryManagement/entrymanagedialog.ui \
+    EntryManagement/entrytotaladddialog.ui

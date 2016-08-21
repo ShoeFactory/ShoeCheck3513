@@ -1,10 +1,9 @@
-﻿#include <QApplication>
-
+﻿
+#include <QApplication>
 #include <QSqlError>
 #include "logindialog.h"
 #include "mainwindow.h"
 #include "dbhelper.h"
-
 
 int main(int argc, char *argv[])
 {
